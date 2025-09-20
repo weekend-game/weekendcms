@@ -1,0 +1,46 @@
+td.title1 {
+font-family: Arial;
+font-size: 24pt;
+font-weight: bold;
+background-color: #0066cc;
+color: white
+}
+td.title2 {
+font-family: Arial;
+font-size: 12pt;
+font-weight: bold;
+background-color: #C04000;
+color: white
+}
+td.title3 {
+font-family: Arial;
+font-size: 12pt;
+font-weight: bold;
+color: #C04000
+}
+td.separator {
+background-image: url('pics/separator.gif');
+background-repeat: repeat;
+font-family: Arial;
+font-size: 10pt;
+font-weight: normal;
+color: black
+}
+td.menu {
+font-family: Verdana;
+font-size: 8pt;
+font-weight: normal;
+color: Navy
+}
+td.text {
+font-family: Arial;
+font-size: 10pt;
+font-weight: normal;
+color: Navy
+}
+td.microtext {
+font-family: Verdana;
+font-size: 8pt;
+font-weight: normal;
+color: Navy
+}

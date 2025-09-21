@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -49,7 +50,7 @@ public class ListEditor {
 			}
 		});
 
-		gbl.addExtB(list, 9, 1);
+		gbl.addExtB(new JScrollPane(list), 9, 1);
 
 		JPanel shiftPanel = new JPanel();
 		shiftPanel.setLayout(new BorderLayout());

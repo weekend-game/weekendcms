@@ -16,14 +16,23 @@ public class SiteDescriptor {
 		setDstFolder(Proper.getProperty("dstFolder", "./destination"));
 		setSrcFolder(Proper.getProperty("srcFolder", "./source"));
 
-		pages.add(new PageDescriptor("bankviewer.htm", "Bankviewer", "EN"));
-		pages.add(new PageDescriptor("bankviewer_ru.htm", "Просмотр банковских выписок", "RU"));
-		pages.add(new PageDescriptor("weekendtexteditor.htm", "Weekend text editor", "EN"));
-		pages.add(new PageDescriptor("weekendtexteditor_ru.htm", "Текстовый редактор", "RU"));
-		pages.add(new PageDescriptor("weekendinterpreter.htm", "Weekend interpreter", "EN"));
-		pages.add(new PageDescriptor("weekendinterpreter_ru.htm", "Интерпретатор", "RU"));
-		pages.add(new PageDescriptor("diary.htm", "Diary", "EN"));
-		pages.add(new PageDescriptor("diary_ru.htm", "Дневник", "RU"));
+		pages.clear();
+		for (int i = 0; i < MAX_PAGE; ++i) {
+			String fileName = Proper.getProperty("fileName" + i, "");
+			String name = Proper.getProperty("name" + i, "");
+			String lang = Proper.getProperty("lang" + i, "");
+			if (fileName.length() > 0)
+				pages.add(new PageDescriptor(fileName, name, lang));
+		}
+
+//		pages.add(new PageDescriptor("bankviewer.htm", "Bankviewer", "EN"));
+//		pages.add(new PageDescriptor("bankviewer_ru.htm", "Просмотр банковских выписок", "RU"));
+//		pages.add(new PageDescriptor("weekendtexteditor.htm", "Weekend text editor", "EN"));
+//		pages.add(new PageDescriptor("weekendtexteditor_ru.htm", "Текстовый редактор", "RU"));
+//		pages.add(new PageDescriptor("weekendinterpreter.htm", "Weekend interpreter", "EN"));
+//		pages.add(new PageDescriptor("weekendinterpreter_ru.htm", "Интерпретатор", "RU"));
+//		pages.add(new PageDescriptor("diary.htm", "Diary", "EN"));
+//		pages.add(new PageDescriptor("diary_ru.htm", "Дневник", "RU"));
 	}
 
 	public void saveData() {

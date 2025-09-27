@@ -92,7 +92,7 @@ public class GBL {
 	 * @param c     component.
 	 * @param width component width.
 	 */
-	public void addExtX(Component c, int width) {
+	public void addExtH(Component c, int width) {
 		gbc.weightx = 1.0;
 		gbc.weighty = 0.0;
 		gbc.gridwidth = width;

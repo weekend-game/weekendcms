@@ -123,7 +123,7 @@ public class ListEditor {
 				saveName();
 			}
 		});
-		gbl.addExtX(fldName, 8);
+		gbl.addExtH(fldName, 8);
 		gbl.newLine();
 
 		gbl.addFixL(new JLabel(Loc.get("file_name") + ":"), 1);
@@ -139,7 +139,7 @@ public class ListEditor {
 				saveFileName();
 			}
 		});
-		gbl.addExtX(fldFileName, 8);
+		gbl.addExtH(fldFileName, 8);
 		gbl.newLine();
 
 		JButton btnAdd = new JButton(Loc.get("new"));

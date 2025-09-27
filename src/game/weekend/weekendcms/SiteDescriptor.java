@@ -21,18 +21,9 @@ public class SiteDescriptor {
 			String fileName = Proper.getProperty("fileName" + i, "");
 			String name = Proper.getProperty("name" + i, "");
 			String lang = Proper.getProperty("lang" + i, "");
-			if (fileName.length() > 0)
+			if (fileName.length() > 0 || name.length() > 0 || lang.length() > 0)
 				pages.add(new PageDescriptor(fileName, name, lang));
 		}
-
-//		pages.add(new PageDescriptor("bankviewer.htm", "Bankviewer", "EN"));
-//		pages.add(new PageDescriptor("bankviewer_ru.htm", "Просмотр банковских выписок", "RU"));
-//		pages.add(new PageDescriptor("weekendtexteditor.htm", "Weekend text editor", "EN"));
-//		pages.add(new PageDescriptor("weekendtexteditor_ru.htm", "Текстовый редактор", "RU"));
-//		pages.add(new PageDescriptor("weekendinterpreter.htm", "Weekend interpreter", "EN"));
-//		pages.add(new PageDescriptor("weekendinterpreter_ru.htm", "Интерпретатор", "RU"));
-//		pages.add(new PageDescriptor("diary.htm", "Diary", "EN"));
-//		pages.add(new PageDescriptor("diary_ru.htm", "Дневник", "RU"));
 	}
 
 	public void saveData() {
@@ -56,6 +47,18 @@ public class SiteDescriptor {
 			Proper.setProperty("lang" + i, "");
 			++i;
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		SiteDescriptor sd = (SiteDescriptor) o;
+
+		if (!getProjectName().equals(sd.getProjectName()) || !getGitSiteEN().equals(sd.getGitSiteEN())
+				|| !getGitSiteRU().equals(sd.getGitSiteRU()) || !getMail().equals(sd.getMail())
+				|| !getDstFolder().equals(sd.getDstFolder()) || !getSrcFolder().equals(sd.getSrcFolder()))
+			return false;
+
+		return (getPages().equals(sd.getPages()));
 	}
 
 	public String getProjectName() {
@@ -122,6 +125,14 @@ public class SiteDescriptor {
 			this.fileName = fileName;
 			this.name = name;
 			this.lang = lang;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			PageDescriptor pd = (PageDescriptor) o;
+
+			return getFileName().equals(pd.getFileName()) && getName().equals(pd.getName())
+					&& getLang().equals(pd.getLang());
 		}
 
 		@Override

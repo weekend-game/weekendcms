@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -23,7 +24,7 @@ public class WeekendCMS {
 	public static final String APP_NAME = "WeekendCMS";
 
 	/** Version */
-	public static final String APP_VERSION = "01.10";
+	public static final String APP_VERSION = "01.20";
 
 	/**
 	 * Create an application. The application frame, objects required for operation,
@@ -45,7 +46,7 @@ public class WeekendCMS {
 		makeJFrame();
 
 		// Messages
-		messenger = new Messenger(frame);
+		Mes.setJFrame(frame);
 
 		// Reading for editing from the site descriptor
 		readFromSiteDescriptor();
@@ -60,6 +61,15 @@ public class WeekendCMS {
 		// intercept this event
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
+				writeToSiteDescriptor();
+				if (isChanged()) {
+					int retVal = Mes.conf(Loc.get("save_changes_before_closing_the_application") + "?");
+					if (retVal == JOptionPane.CANCEL_OPTION)
+						return;
+					else if (retVal == JOptionPane.YES_OPTION) {
+						siteDescriptor.saveData();
+					}
+				}
 				// and call this method. It will save the settings
 				close();
 			}
@@ -78,7 +88,7 @@ public class WeekendCMS {
 				String prevLanguage = Proper.getProperty("Language", "EN");
 				Proper.setProperty("Language", "EN");
 				if (!prevLanguage.equalsIgnoreCase("EN"))
-					messenger.inf(Loc.get("restart_the_application"));
+					Mes.inf(Loc.get("restart_the_application"));
 			}
 		});
 		gbl.addFixR(enButton, 1);
@@ -91,7 +101,7 @@ public class WeekendCMS {
 				String prevLanguage = Proper.getProperty("Language", "EN");
 				Proper.setProperty("Language", "RU");
 				if (!prevLanguage.equalsIgnoreCase("RU"))
-					messenger.inf(Loc.get("restart_the_application"));
+					Mes.inf(Loc.get("restart_the_application"));
 			}
 		});
 		gbl.addFixR(ruButton, 1);
@@ -100,28 +110,28 @@ public class WeekendCMS {
 
 		gbl.newLine();
 
-		gbl.addExtX(fldProjectName, 6);
+		gbl.addExtH(fldProjectName, 6);
 		gbl.newLine();
 
 		gbl.addFixL(new JLabel(Loc.get("website_for_projects_in_english") + ":"), 1);
 		gbl.newLine();
-		gbl.addExtX(fldGitSiteEN, 10);
+		gbl.addExtH(fldGitSiteEN, 10);
 		gbl.newLine();
 
 		gbl.addFixL(new JLabel(Loc.get("website_for_projects_in_russian") + ":"), 1);
 		gbl.newLine();
-		gbl.addExtX(fldGitSiteRU, 10);
+		gbl.addExtH(fldGitSiteRU, 10);
 		gbl.newLine();
 
 		gbl.addFixL(new JLabel(Loc.get("email") + ":"), 1);
 		gbl.newLine();
-		gbl.addExtX(fldMail, 10);
+		gbl.addExtH(fldMail, 10);
 		gbl.newLine();
 
 		gbl.addFixL(new JLabel(Loc.get("folder_for_generated_pages") + ":"), 1);
 		gbl.newLine();
 		fldDstFolder.setEditable(false);
-		gbl.addExtX(fldDstFolder, 9);
+		gbl.addExtH(fldDstFolder, 9);
 		JButton btnDst = new JButton("...");
 		btnDst.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -140,7 +150,7 @@ public class WeekendCMS {
 		gbl.addFixL(new JLabel(Loc.get("folder_where_text_files_are_located") + ":"), 1);
 		gbl.newLine();
 		fldSrcFolder.setEditable(false);
-		gbl.addExtX(fldSrcFolder, 9);
+		gbl.addExtH(fldSrcFolder, 9);
 		JButton btnSrc = new JButton("...");
 		btnSrc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -167,7 +177,7 @@ public class WeekendCMS {
 			public void actionPerformed(ActionEvent e) {
 				writeToSiteDescriptor();
 				Generator.doIt(siteDescriptor);
-				messenger.inf(Loc.get("the_pages_are_formed"));
+				Mes.inf(Loc.get("the_pages_are_formed"));
 			}
 		});
 		gbl.addFixL(makeButton, 1);
@@ -187,6 +197,15 @@ public class WeekendCMS {
 		JButton cancelButton = new JButton(Loc.get("cancel"));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				writeToSiteDescriptor();
+				if (isChanged()) {
+					int retVal = Mes.conf(Loc.get("save_changes_before_closing_the_application") + "?");
+					if (retVal == JOptionPane.CANCEL_OPTION)
+						return;
+					else if (retVal == JOptionPane.YES_OPTION) {
+						siteDescriptor.saveData();
+					}
+				}
 				close();
 			}
 		});
@@ -243,6 +262,13 @@ public class WeekendCMS {
 		siteDescriptor.setPages(listEditor.getPages());
 	}
 
+	private boolean isChanged() {
+		SiteDescriptor prevSiteDescriptor = new SiteDescriptor();
+		prevSiteDescriptor.readData();
+
+		return (!prevSiteDescriptor.equals(siteDescriptor));
+	}
+
 	/**
 	 * Get the main application frame.
 	 * 
@@ -253,7 +279,6 @@ public class WeekendCMS {
 	}
 
 	private JFrame frame;
-	private Messenger messenger;
 
 	private SiteDescriptor siteDescriptor;
 

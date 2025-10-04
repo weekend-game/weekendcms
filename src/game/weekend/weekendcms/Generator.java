@@ -61,9 +61,9 @@ public class Generator {
 
 			writeln("");
 			writeln("	<br>");
-			writeln("	<table width=\"80%\" align=center border=0 cellpadding=0 cellspacing=0>");
+			writeln("	<table>");
 			writeln("		<tr>");
-			writeln("			<td align=right class=\"microtext\">");
+			writeln("			<td style=\"text-align: right;\" class=\"microtext\">");
 
 			writeln("See my projects at <a class=\"link\" href=\"" + sd.getGitSiteEN() + "\">" + sd.getGitSiteEN()
 					+ "</a>.<br>");
@@ -77,15 +77,15 @@ public class Generator {
 			writeln("");
 			writeln("	<br><br><br><br><br><br>");
 			writeln("");
-			writeln("	<table width=\"80%\" align=center border=0 cellpadding=0 cellspacing=0>");
+			writeln("	<table>");
 			makeMenu("", "EN", true);
 			writeln("	</table>");
 			writeln("");
 			writeln("	<br><br>");
 			writeln("");
-			writeln("	<table width=\"80%\" align=center border=0 cellpadding=0 cellspacing=0>");
+			writeln("	<table>");
 			writeln("		<tr>");
-			writeln("			<td align=center class=\"title1\">");
+			writeln("			<td class=\"title1\">");
 			writeln("				" + sd.getProjectName());
 			writeln("			</td>");
 			writeln("		</tr>");
@@ -93,15 +93,15 @@ public class Generator {
 			writeln("");
 			writeln("	<br><br>");
 			writeln("");
-			writeln("	<table width=\"80%\" align=center border=0 cellpadding=0 cellspacing=0>");
+			writeln("	<table>");
 			makeMenu("", "RU", true);
 			writeln("	</table>");
 			writeln("");
 			writeln("	<br><br><br><br><br><br>");
 			writeln("");
-			writeln("	<table width=\"80%\" align=center border=0 cellpadding=0 cellspacing=0>");
+			writeln("	<table>");
 			writeln("		<tr>");
-			writeln("			<td class=\"microtext\">");
+			writeln("			<td  style=\"text-align: left;\" class=\"microtext\">");
 
 			writeln("Смотрите мои проекты на <a class=\"link\" href=\"" + sd.getGitSiteRU() + "\">");
 			writeln(sd.getGitSiteRU() + "</a>. Приветствую любые ваши<br>");
@@ -153,13 +153,13 @@ public class Generator {
 	}
 
 	private static void top(String name, String lang) {
-		writeln("	<table width=\"80%\" align=center border=0 cellpadding=0 cellspacing=0>");
+		writeln("	<table>");
 		writeln("		<tr>");
-		writeln("			<td align=center class=\"title1\">" + name);
+		writeln("			<td class=\"title1\">" + name);
 		writeln("			</td>");
 		writeln("		</tr>");
 		writeln("		<tr>");
-		writeln("			<td align=center class=\"menu\">");
+		writeln("			<td class=\"menu\">");
 		writeln("				<br>");
 		writeln("			</td>");
 		writeln("		</tr>");
@@ -167,7 +167,7 @@ public class Generator {
 		makeMenu(name, lang, false);
 		writeln("");
 		writeln("		<tr>");
-		writeln("			<td align=center class=\"menu\">");
+		writeln("			<td class=\"menu\">");
 		writeln("				<br>");
 		writeln("				<hr size=1 noshade>");
 		writeln("			</td>");
@@ -177,9 +177,9 @@ public class Generator {
 	}
 
 	private static void bottom(String name, String lang) {
-		writeln("	<table width=\"80%\" align=center border=0 cellpadding=0 cellspacing=0>");
+		writeln("	<table>");
 		writeln("		<tr>");
-		writeln("			<td align=center class=\"menu\">");
+		writeln("			<td class=\"menu\">");
 		writeln("				<hr size=1 noshade>");
 		writeln("				<br>");
 		writeln("			</td>");
@@ -188,7 +188,7 @@ public class Generator {
 		makeMenu(name, lang, false);
 		writeln("");
 		writeln("		<tr>");
-		writeln("			<td align=center class=\"menu\">");
+		writeln("			<td class=\"menu\">");
 		writeln("				<br>");
 		if (lang.equalsIgnoreCase("RU")) {
 			writeln("Смотрите мои проекты на <a class=\"link\" href=\"" + sd.getGitSiteEN() + "\">" + sd.getGitSiteEN()
@@ -221,7 +221,7 @@ public class Generator {
 
 	private static void makeMenu(String name, String lang, boolean homeFree) {
 		writeln("		<tr>");
-		writeln("			<td align=center class=\"menu\">");
+		writeln("			<td class=\"menu\">");
 
 		if (!homeFree)
 			if (lang.equalsIgnoreCase("RU"))

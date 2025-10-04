@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -24,7 +25,9 @@ public class WeekendCMS {
 	public static final String APP_NAME = "WeekendCMS";
 
 	/** Version */
-	public static final String APP_VERSION = "01.20";
+	public static final String APP_VERSION = "01.40";
+
+	public static final String IMAGE_PATH = "/game/weekend/weekendcms/images/";
 
 	/**
 	 * Create an application. The application frame, objects required for operation,
@@ -74,6 +77,8 @@ public class WeekendCMS {
 				close();
 			}
 		});
+
+		frame.setIconImage(new ImageIcon(getClass().getResource(WeekendCMS.IMAGE_PATH + "game.gif")).getImage());
 
 		JPanel panel = (JPanel) frame.getContentPane();
 		GBL gbl = new GBL(panel, true);

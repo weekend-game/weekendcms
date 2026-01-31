@@ -25,7 +25,7 @@ public class WeekendCMS {
 	public static final String APP_NAME = "WeekendCMS";
 
 	/** Version */
-	public static final String APP_VERSION = "01.40";
+	public static final String APP_VERSION = "01.50";
 
 	public static final String IMAGE_PATH = "/game/weekend/weekendcms/images/";
 

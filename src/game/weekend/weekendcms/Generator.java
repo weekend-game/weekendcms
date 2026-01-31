@@ -12,11 +12,18 @@ public class Generator {
 
 	private final static String LF = System.lineSeparator();
 	private static final Charset CHARSET = Charset.forName("UTF-8");
+	private static String comment;
+
 	private static PrintWriter out = null;
 	private static SiteDescriptor sd = null;
 
 	public static void doIt(SiteDescriptor sd) {
 		Generator.sd = sd;
+
+		if (Loc.getLanguage().equalsIgnoreCase("RU"))
+			comment = "<!-- Создано посредством WeekendCMS. См. подробнее: https://github.com/weekend-game/weekendcms -->";
+		else
+			comment = "<!-- Generated with WeekendCMS. See more: https://github.com/weekend-game/weekendcms -->";
 
 		File homeFile = getDstFile("index.htm");
 		makeHomePage(homeFile);
@@ -75,26 +82,35 @@ public class Generator {
 			writeln("		</tr>");
 			writeln("	</table>");
 			writeln("");
-			writeln("	<br><br><br><br><br><br>");
+			writeln("	<br><br><br><br>");
 			writeln("");
+
 			writeln("	<table>");
+
+			writeln("		<tr>	<td class=\"title2\">");
+
+			for (int j = 0; j < 16; ++j)
+				writeln("&nbsp;&nbsp;&nbsp;&nbsp; ".repeat(4));
+			writeln("		</td></tr>");
+
 			makeMenu("", "EN", true);
-			writeln("	</table>");
-			writeln("");
-			writeln("	<br><br>");
-			writeln("");
-			writeln("	<table>");
+
+			writeln("		<tr>	<td class=\"text\">");
+			writeln("			<br><br>");
+			writeln("		</td></tr>");
+
 			writeln("		<tr>");
 			writeln("			<td class=\"title1\">");
 			writeln("				" + sd.getProjectName());
 			writeln("			</td>");
 			writeln("		</tr>");
-			writeln("	</table>");
-			writeln("");
-			writeln("	<br><br>");
-			writeln("");
-			writeln("	<table>");
+
+			writeln("		<tr>	<td class=\"text\">");
+			writeln("			<br><br>");
+			writeln("		</td></tr>");
+
 			makeMenu("", "RU", true);
+
 			writeln("	</table>");
 			writeln("");
 			writeln("	<br><br><br><br><br><br>");
@@ -112,6 +128,8 @@ public class Generator {
 			writeln("			</td>");
 			writeln("		</tr>");
 			writeln("	</table>");
+			writeln("");
+			writeln(comment);
 			writeln("");
 			writeln("</body>");
 			writeln("");
@@ -210,6 +228,8 @@ public class Generator {
 		writeln("	</table>");
 		writeln("	<br>");
 		writeln("");
+		writeln(comment);
+		writeln("");
 		writeln("</body>");
 		writeln("");
 		writeln("</html>");
@@ -229,11 +249,19 @@ public class Generator {
 			else
 				writeln("				<a class=\"link\" href=\"index.htm\">Home</a>");
 
-		int i = 1;
+		int i = 0;
 		for (SiteDescriptor.PageDescriptor page : sd.getPages()) {
 			if (page.getLang().equalsIgnoreCase(lang)) {
-				if (!homeFree || i++ != 1)
-					writeln("				|");
+				if (!homeFree || i != 0)
+					write("				|");
+
+				++i;
+				if (homeFree) { // Деление линейки меню для главной страницы
+					if (i % 5 == 0)
+						writeln("<br>");
+					else
+						writeln("");
+				}
 
 				if (page.getName().equalsIgnoreCase(name))
 					writeln("				" + page.getName());
